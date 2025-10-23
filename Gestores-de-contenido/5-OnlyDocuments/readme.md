@@ -2,10 +2,14 @@
 ## Realizado por: José García Torrescusa.
 _"Onlydocuments" se refiere a la suite ofimática ONLYOFFICE Docs, que es una colección de editores en línea para crear, visualizar y colaborar en documentos de texto, hojas de cálculo y presentaciones._
 ---
-1. Descargamos el motor de base de datos de PostgreSQL y creamos una base de datos y usuarios asociado.
+1. Descargamos el motor de base de datos de PostgreSQL y creamos una base de datos y usuarios asociado. Procedemos a instalar las dependencias.
 `sudo apt install postgresql`
 `sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH PASSWORD 'onlyoffice';"`
 `sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice OWNER onlyoffice;";`
+`sudo apt install libcurl4t64`
+`sudo apt install libxml2`
+`sudo apt install fonts-dejavu`
+`sudo apt install fonts-liberation ttf-mscorefonts-installer fonts-crosextra-carlito fonts-takao-gothic fonts-opensymbol`
 
 2. Instalamos rabbitmq que es el motor de OnlyOffice, si lo estamos instalando en una versión superior a Ubuntu 18.04 tendremos que instalar también un motor nginx.
 `sudo apt install rabbitmq-server`
@@ -24,6 +28,13 @@ _"Onlydocuments" se refiere a la suite ofimática ONLYOFFICE Docs, que es una co
 5. Añadimos el repositorio de OnlyOffice y actualizamos paquetes.
 `echo "deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list`
 
-6. Instalamos el paquete de tipo de letras y fuentes de OnlyOffice. Y el fichero de instalación de OnlyOffice.
+6. Instalamos el paquete de tipo de letras y fuentes de OnlyOffice. Y el fichero de instalación de OnlyOffice. **SI NOS SALE ERROR DE DPKG, HAY QUE DESHABILITAR EL SERVICIO DE APACHE2, YA QUE ENTRA EN CONFLICTO LOS PUERTOS**
 `sudo apt-get install ttf-mscorefonts-installer`
 `sudo apt-get install onlyoffice-documentserver`
+
+7. Tendremos que habilitar el panel de administrador de nuestro servidor, para ello usaremos systemctl.
+`sudo systemctl start ds-adminpanel`
+`sudo systemctl enable ds-adminpanel`
+
+8. Accedemos al panel de administración, para poder iniciar sesión necesitaremos un token que aparece en /var/log/onlyoffice/documentserver/bootstrap.log, como medida de seguridad. Si no existe tendremos que forzar la creación de ese token.
+`cat /var/log/onlyoffice/documentserver/adminpanel/out.log`
