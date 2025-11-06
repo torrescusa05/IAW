@@ -1,6 +1,6 @@
 # Instalación paso a paso de un servidor proxy inverso con Nginx
 ## Realizado por: José García Torrescusa.
-_Prueba_
+_Nginx (pronunciado "engine-ex") es un servidor web de alto rendimiento. Su trabajo principal es "servir" el contenido de un sitio web (como texto, imágenes, etc.) a tu navegador de forma muy rápida y eficiente. Nextcloud es un software para crear tu propia nube privada, similar a servicios como Google Drive, Dropbox o Microsoft 365._
 ---
 ## Preparación de entorno
 1. Usaremos una instancia de AWS EC2, como requisitos básicos necesitamos una AMI con Ubuntu Server y con 1GB de RAM. Añadimos un grupo de seguridad y su clave privada.
